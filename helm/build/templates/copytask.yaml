@@ -31,7 +31,7 @@ spec:
         pwd
         ls -a
         if [ "$(params.srcImageURL)" != "" ] && [ "$(params.destImageURL)" != "" ] ; then
-          skopeo copy "$(params.srcImageURL)" "$(params.destImageURL)" --authfile=/kaniko/.docker
+          skopeo copy "$(params.srcImageURL)" "$(params.destImageURL)" --src-creds=my-quarkus-app-17-dev:pipeline --dest-creds=my-quarkus-app-17-preprod:pipeline
         fi
       securityContext:
         runAsUser: 0
