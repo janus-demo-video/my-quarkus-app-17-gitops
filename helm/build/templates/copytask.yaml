@@ -28,6 +28,8 @@ spec:
       workingDir: $(workspaces.source.path)
       image: quay.io/skopeo/stable:v1.9.0
       script: |
+        pwd
+        ls -a
         if [ "$(params.srcImageURL)" != "" ] && [ "$(params.destImageURL)" != "" ] ; then
           skopeo copy "$(params.srcImageURL)" "$(params.destImageURL)" --authfile=/kaniko/.docker
         fi
