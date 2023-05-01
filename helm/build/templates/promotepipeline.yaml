@@ -35,5 +35,8 @@ spec:
       workspaces:
         - name: images-url
           workspace: images-url
+        - name: source
+          workspace: source-folder
   workspaces:
     - name: images-url
+    - name: source-folder
