@@ -11,21 +11,29 @@ spec:
     - name: source-image
       description: source image to promote
       type: string
+      default: {{ include "image.url" . }}
     - name: destination-image
       description: destination image to promote to
       type: string
+    - name: IMAGE_TAG
+      type: string
+      default: latest
   tasks:
     - name: skopeo-copy
       params:
         - name: srcImageURL
-          value: $(params.source-image)
+          value: 'docker://$(params.SRC_IMAGE_URL):$(params.IMAGE_TAG)'
         - name: destImageURL
-          value: $(params.destination-image)
+          value: 'docker://$(params.DEST_IMAGE_URL):$(params.IMAGE_TAG)'
+        - name: srcTLSverify
+          value: 'false'
+        - name: destTLSverify
+          value: 'false'
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: skopeo-copy
       workspaces:
-        - name: dockercfg
-          workspace: dockercfg
+        - name: images-url
+          workspace: images-url
   workspaces:
-    - name: dockercfg
+    - name: images-url
