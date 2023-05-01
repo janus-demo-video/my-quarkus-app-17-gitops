@@ -12,8 +12,8 @@ metadata:
     tekton.dev/platforms: "linux/amd64,linux/s390x,linux/ppc64le,linux/arm64"
 spec:
   workspaces:
-    - name: dockercfg
-      mountPath: /etc/docker  
+    - name: source
+      description: Holds the context and Dockerfile
   params:
     - name: srcImageURL
       description: URL of the image to be copied to the destination registry
@@ -25,14 +25,11 @@ spec:
       default: ""
   steps:
     - name: skopeo-copy    
-      env:
-      - name: HOME
-        value: /tekton/home
+      workingDir: $(workspaces.source.path)
       image: quay.io/skopeo/stable:v1.9.0
       script: |
         if [ "$(params.srcImageURL)" != "" ] && [ "$(params.destImageURL)" != "" ] ; then
-          skopeo copy "$(params.srcImageURL)" "$(params.destImageURL)" --authfile=/etc/docker/.dockercfg
+          skopeo copy "$(params.srcImageURL)" "$(params.destImageURL)" --authfile=/kaniko/.docker
         fi
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 65532
+        runAsUser: 0
