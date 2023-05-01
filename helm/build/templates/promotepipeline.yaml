@@ -33,10 +33,7 @@ spec:
         kind: Task
         name: skopeo-copy
       workspaces:
-        - name: images-url
-          workspace: images-url
         - name: source
           workspace: source-folder
   workspaces:
-    - name: images-url
     - name: source-folder
