@@ -25,7 +25,7 @@ spec:
         kind: Task
         name: skopeo-copy
       workspaces:
-        - name: images-url
-          workspace: images-url
+        - name: dockercfg
+          workspace: dockercfg
   workspaces:
-    - name: images-url
+    - name: dockercfg
