@@ -15,16 +15,16 @@ spec:
     - name: destination-image
       description: destination image to promote to
       type: string
-    - name: IMAGE_TAG
+    - name: image-tag
       type: string
       default: latest
   tasks:
     - name: skopeo-copy
       params:
         - name: srcImageURL
-          value: 'docker://$(params.SRC_IMAGE_URL):$(params.IMAGE_TAG)'
+          value: 'docker://$(params.source-image):$(params.image-tag)'
         - name: destImageURL
-          value: 'docker://$(params.DEST_IMAGE_URL):$(params.IMAGE_TAG)'
+          value: 'docker://$(params.destination-image):$(params.image-tag)'
         - name: srcTLSverify
           value: 'false'
         - name: destTLSverify
